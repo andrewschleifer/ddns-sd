@@ -3,6 +3,18 @@
 # Given a list of EC2 server IDs that are running, remove SRV records that
 # don't belong to any of those servers.
 
+require 'optparse'
+
+VERBOSE = false
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: prune-dns [options] [operation]"
+  opts.separator "Options:"
+  opts.on("-v", "--verbose", "Verbose mode") do |v|
+    VERBOSE = v
+  end
+end
+
 operation = ARGV[0]
 
 unless operation.nil?
@@ -31,7 +43,7 @@ require 'ddnssd/dns_record'
 require 'ddnssd/backend/power_dns'
 
 logger = Logger.new($stderr)
-logger.level = "DEBUG"
+logger.level = VERBOSE ? "DEBUG" : "WARN"
 
 config = DDNSSD::Config.new(ENV, logger: logger)
 
