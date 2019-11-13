@@ -10,7 +10,7 @@ VERBOSE = false
 OptionParser.new do |opts|
   opts.banner = "Usage: prune-dns [options] [operation]"
   opts.separator "Options:"
-  opts.on("-v", "--verbose", "Verbose mode") do |v|
+  opts.on("-v", "--verbose", "Verbose mode") do |v|
     VERBOSE = v
   end
 end
